@@ -1,8 +1,8 @@
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#102c85">
   <meta name="description" content="Steam on Glass — Takao Wazowsky. Listen now and follow Takao.">
@@ -12,7 +12,7 @@
   <style>
     :root {
       color-scheme: dark;
-      --white: #fff;
+      --white: #ffffff;
     }
 
     * {
@@ -21,33 +21,32 @@
 
     html {
       min-height: 100%;
+      background: #102c85;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
       min-height: 100svh;
+      overflow-x: hidden;
       color: var(--white);
       font-family: Arial, Helvetica, sans-serif;
       background: #102c85;
-      overflow-x: hidden;
     }
 
     /* COVER BACKGROUND */
+
     .backdrop {
       position: fixed;
       inset: 0;
       z-index: 0;
+      background-color: #102c85;
       background-image: url("./cover.jpg");
       background-position: center center;
       background-size: cover;
       background-repeat: no-repeat;
       pointer-events: none;
     }
-    main {
-  position: relative;
-  z-index: 1;
-}
 
     .backdrop::after {
       content: "";
@@ -55,40 +54,337 @@
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(3, 13, 48, .18),
-        rgba(4, 12, 43, .42) 48%,
-        rgba(2, 8, 30, .72)
+        rgba(3, 13, 48, 0.18),
+        rgba(4, 12, 43, 0.42) 48%,
+        rgba(2, 8, 30, 0.72)
       );
-      -webkit-backdrop-filter: blur(1px);
-      backdrop-filter: blur(1px);
     }
 
     /* MAIN CONTENT */
+
     main {
       position: relative;
       z-index: 1;
-      width: min(100% - 32px, 520px);
-      margin: 0 auto;
+      width: calc(100% - 32px);
+      max-width: 520px;
       min-height: 100vh;
       min-height: 100svh;
+      margin: 0 auto;
+      padding: 11vh 0 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 11vh 0 30px;
       animation: arrive 900ms ease both;
     }
 
     .eyebrow {
-      font-size: .68rem;
-      letter-spacing: .34em;
-      font-weight: 600;
-      opacity: .82;
       margin-bottom: 14px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.34em;
+      opacity: 0.9;
     }
 
     h1 {
+      margin: 0 0 28px;
       font-size: clamp(2rem, 8vw, 3.65rem);
-      line-height: .98;
-      letter-spacing: .11em;
-      font-weight: 500
+      line-height: 0.98;
+      font-weight: 500;
+      letter-spacing: 0.11em;
+      text-shadow: 0 2px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    /* AUDIO PREVIEW */
+
+    .preview {
+      min-width: 168px;
+      padding: 13px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      border-radius: 999px;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .preview:hover,
+    .preview:focus-visible {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .preview:focus-visible,
+    a:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 4px;
+    }
+
+    .status {
+      min-height: 1.2em;
+      margin: 10px 0 0;
+      font-size: 0.72rem;
+      opacity: 0.9;
+    }
+
+    /* LISTEN AND SOCIAL SECTIONS */
+
+    .section {
+      width: 100%;
+      margin-top: 34px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 0.69rem;
+      font-weight: 700;
+      letter-spacing: 0.27em;
+    }
+
+    .links {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 9px;
+      width: 100%;
+    }
+
+    .link {
+      display: flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.65);
+      border-radius: 3px;
+      color: #ffffff;
+      background: rgba(5, 16, 54, 0.45);
+      font-size: 0.77rem;
+      font-weight: 600;
+      letter-spacing: 0.17em;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+    }
+
+    .socials {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 36px;
+      font-size: 0.61rem;
+      letter-spacing: 0.2em;
+      opacity: 0.9;
+    }
+
+    /* ANIMATION */
+
+    @keyframes arrive {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* DESKTOP AND TABLETS */
+
+    @media (min-width: 700px) {
+      main {
+        padding-top: 8vh;
+        padding-bottom: 24px;
+      }
+
+      .section {
+        margin-top: 27px;
+      }
+    }
+
+    /* SHORT SCREENS */
+
+    @media (max-height: 760px) {
+      main {
+        padding-top: 5vh;
+      }
+
+      .section {
+        margin-top: 23px;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+      }
+    }
+
+    /* ACCESSIBILITY */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND -->
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <main>
+
+    <div class="eyebrow">TAKAO WAZOWSKY</div>
+
+    <h1>STEAM<br>ON GLASS</h1>
+
+    <!-- AUDIO FILE -->
+    <audio id="preview" preload="none">
+      <source src="./preview.mp3" type="audio/mpeg">
+      Your browser does not support audio playback.
+    </audio>
+
+    <!-- PREVIEW BUTTON -->
+    <button
+      class="preview"
+      id="preview-button"
+      type="button"
+      aria-pressed="false"
+    >
+      ▶ &nbsp; PREVIEW
+    </button>
+
+    <p class="status" id="audio-status" aria-live="polite"></p>
+
+    <!-- STREAMING PLATFORMS -->
+    <section class="section" aria-labelledby="listen-heading">
+
+      <h2 id="listen-heading">LISTEN TO IT ON</h2>
+
+      <div class="links">
+
+        <a
+          class="link"
+          href="https://open.spotify.com/track/5Qv5n6KKxDJcZPTpzqa1Pd"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          SPOTIFY ↗
+        </a>
+
+        <a
+          class="link"
+          href="https://music.apple.com/it/song/steam-on-glass/6820443212"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          APPLE MUSIC ↗
+        </a>
+
+        <a
+          class="link"
+          href="https://youtu.be/6PqNQkeXZhU"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          YOUTUBE ↗
+        </a>
+
+      </div>
+    </section>
+
+    <!-- SOCIAL MEDIA -->
+    <section class="section" aria-labelledby="follow-heading">
+
+      <h2 id="follow-heading">FOLLOW TAKAO ON</h2>
+
+      <div class="links socials">
+
+        <a
+          class="link"
+          href="https://www.instagram.com/takao.wav/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          INSTAGRAM ↗
+        </a>
+
+        <a
+          class="link"
+          href="https://www.tiktok.com/@takao.wav"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          TIKTOK ↗
+        </a>
+
+      </div>
+    </section>
+
+    <footer>INDEPENDENT MUSIC · TAKAO WAZOWSKY</footer>
+
+  </main>
+
+  <script>
+    const audio = document.getElementById("preview");
+    const button = document.getElementById("preview-button");
+    const status = document.getElementById("audio-status");
+
+    button.addEventListener("click", async () => {
+
+      if (audio.paused) {
+        try {
+          status.textContent = "LOADING...";
+
+          await audio.play();
+
+          button.textContent = "Ⅱ  PAUSE PREVIEW";
+          button.setAttribute("aria-pressed", "true");
+          status.textContent = "NOW PLAYING";
+
+        } catch (error) {
+          button.textContent = "▶  PREVIEW";
+          button.setAttribute("aria-pressed", "false");
+          status.textContent = "Unable to play audio. Please try again.";
+
+          console.error("Audio playback error:", error);
+        }
+
+      } else {
+        audio.pause();
+
+        button.textContent = "▶  PREVIEW";
+        button.setAttribute("aria-pressed", "false");
+        status.textContent = "PAUSED";
+      }
+    });
+
+    audio.addEventListener("ended", () => {
+      button.textContent = "▶  PREVIEW";
+      button.setAttribute("aria-pressed", "false");
+      status.textContent = "";
+    });
+
+    audio.addEventListener("error", () => {
+      status.textContent = "Audio file could not be loaded.";
+    });
+  </script>
+
+</body>
+</html>
+```
