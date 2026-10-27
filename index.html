@@ -16,9 +16,10 @@
       overflow-x: hidden;
     }
     .backdrop {
-      position: fixed; inset: 0; z-index: -2;
-      background: url("cover.jpg") center center / cover no-repeat;
-      transform: scale(1.025);
+       background-image: url("./cover.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
     }
     .backdrop::after {
       content: ""; position: absolute; inset: 0;
@@ -72,10 +73,9 @@
     <div class="eyebrow">TAKAO WAZOWSKY</div>
     <h1>STEAM<br>ON GLASS</h1>
 
-    <audio id="preview-audio" preload="metadata">
-      <source src="preview.mp3" type="audio/mpeg">
-      Your browser does not support audio playback.
-    </audio>
+ <audio id="preview" preload="auto">
+  <source src="./preview.mp3" type="audio/mpeg">
+</audio>
     <button class="preview" id="preview-button" type="button" aria-pressed="false">▶ &nbsp; PREVIEW</button>
     <p class="status" id="audio-status" aria-live="polite"></p>
 
