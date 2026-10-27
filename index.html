@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,126 +6,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#102c85">
   <meta name="description" content="Steam on Glass — Takao Wazowsky. Listen now and follow Takao.">
+
   <title>STEAM ON GLASS — TAKAO WAZOWSKY</title>
+
   <style>
-    :root { color-scheme: dark; --white: #fff; }
-    * { box-sizing: border-box; }
-    html { min-height: 100%; }
+    :root {
+      color-scheme: dark;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
     body {
-      margin: 0; min-height: 100vh; color: var(--white);
-      font-family: Arial, Helvetica, sans-serif; background: #102c85;
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      background: #102c85;
       overflow-x: hidden;
     }
+
+    /* COVER BACKGROUND */
     .backdrop {
-       background-image: url("./cover.jpg");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url("./cover.jpg");
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      pointer-events: none;
     }
+
     .backdrop::after {
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(3,13,48,.18), rgba(4,12,43,.42) 48%, rgba(2,8,30,.72));
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(3, 13, 48, .18),
+        rgba(4, 12, 43, .42) 48%,
+        rgba(2, 8, 30, .72)
+      );
+      -webkit-backdrop-filter: blur(1px);
       backdrop-filter: blur(1px);
     }
+
+    /* MAIN CONTENT */
     main {
-      width: min(100% - 32px, 520px); margin: 0 auto;
-      min-height: 100svh; display: flex; flex-direction: column;
-      align-items: center; text-align: center; padding: 11vh 0 30px;
+      position: relative;
+      z-index: 1;
+      width: min(100% - 32px, 520px);
+      margin: 0 auto;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 11vh 0 30px;
       animation: arrive 900ms ease both;
     }
-    .eyebrow { font-size: .68rem; letter-spacing: .34em; font-weight: 600; opacity: .82; margin-bottom: 14px; }
+
+    .eyebrow {
+      font-size: .68rem;
+      letter-spacing: .34em;
+      font-weight: 600;
+      opacity: .82;
+      margin-bottom: 14px;
+    }
+
     h1 {
-      font-size: clamp(2rem, 8vw, 3.65rem); line-height: .98;
-      letter-spacing: .11em; font-weight: 500; margin: 0 0 28px;
-      text-shadow: 0 2px 25px rgba(0,0,0,.22);
-    }
-    .preview {
-      border: 1px solid rgba(255,255,255,.82); color: white;
-      background: rgba(255,255,255,.09); border-radius: 999px;
-      padding: 13px 28px; min-width: 168px; cursor: pointer;
-      font-size: .76rem; letter-spacing: .2em; font-weight: 700;
-      backdrop-filter: blur(10px); transition: background .2s, transform .2s;
-    }
-    .preview:hover, .preview:focus-visible { background: rgba(255,255,255,.22); transform: translateY(-2px); }
-    .preview:focus-visible, a:focus-visible { outline: 2px solid white; outline-offset: 4px; }
-    .status { min-height: 1.2em; margin: 10px 0 0; font-size: .72rem; opacity: .82; }
-    .section { width: 100%; margin-top: 34px; }
-    h2 { font-size: .69rem; font-weight: 700; letter-spacing: .27em; margin: 0 0 14px; }
-    .links { display: grid; gap: 9px; width: 100%; }
-    .link {
-      display: flex; align-items: center; justify-content: center; min-height: 46px;
-      padding: 12px 16px; color: white; text-decoration: none;
-      border: 1px solid rgba(255,255,255,.58); background: rgba(5,16,54,.19);
-      border-radius: 3px; font-size: .77rem; font-weight: 600; letter-spacing: .17em;
-      backdrop-filter: blur(8px); transition: background .2s, border-color .2s, transform .2s;
-    }
-    .link:hover { background: rgba(255,255,255,.17); border-color: white; transform: translateY(-1px); }
-    .socials { grid-template-columns: 1fr 1fr; }
-    footer { margin-top: auto; padding-top: 36px; font-size: .61rem; letter-spacing: .2em; opacity: .72; }
-    @keyframes arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @media (min-width: 700px) { main { padding-top: 8vh; padding-bottom: 24px; } .section { margin-top: 27px; } }
-    @media (max-height: 760px) { main { padding-top: 5vh; } .section { margin-top: 23px; } h1 { margin-bottom: 20px; } }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
-  </style>
-</head>
-<body>
-  <div class="backdrop" aria-hidden="true"></div>
-  <main>
-    <div class="eyebrow">TAKAO WAZOWSKY</div>
-    <h1>STEAM<br>ON GLASS</h1>
-
- <audio id="preview" preload="auto">
-  <source src="./preview.mp3" type="audio/mpeg">
-</audio>
-    <button class="preview" id="preview-button" type="button" aria-pressed="false">▶ &nbsp; PREVIEW</button>
-    <p class="status" id="audio-status" aria-live="polite"></p>
-
-    <section class="section" aria-labelledby="listen-heading">
-      <h2 id="listen-heading">LISTEN TO IT ON</h2>
-      <div class="links">
-        <a class="link" href="https://open.spotify.com/track/5Qv5n6KKxDJcZPTpzqa1Pd" target="_blank" rel="noopener noreferrer">SPOTIFY ↗</a>
-        <a class="link" href="https://music.apple.com/it/song/steam-on-glass/6820443212" target="_blank" rel="noopener noreferrer">APPLE MUSIC ↗</a>
-        <a class="link" href="https://youtu.be/6PqNQkeXZhU" target="_blank" rel="noopener noreferrer">YOUTUBE ↗</a>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="follow-heading">
-      <h2 id="follow-heading">FOLLOW TAKAO ON</h2>
-      <div class="links socials">
-        <a class="link" href="https://www.instagram.com/takao.wav/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
-        <a class="link" href="https://www.tiktok.com/@takao.wav" target="_blank" rel="noopener noreferrer">TIKTOK ↗</a>
-      </div>
-    </section>
-
-    <footer>INDEPENDENT MUSIC · TAKAO WAZOWSKY</footer>
-  </main>
-  <script>
-    const audio = document.getElementById('preview-audio');
-    const button = document.getElementById('preview-button');
-    const status = document.getElementById('audio-status');
-
-    button.addEventListener('click', async () => {
-      if (audio.paused) {
-        try {
-          await audio.play();
-          button.textContent = 'Ⅱ  PAUSE PREVIEW';
-          button.setAttribute('aria-pressed', 'true');
-          status.textContent = 'NOW PLAYING';
-        } catch (error) {
-          status.textContent = 'Audio could not be played. Please try again.';
-        }
-      } else {
-        audio.pause();
-        button.textContent = '▶  PREVIEW';
-        button.setAttribute('aria-pressed', 'false');
-        status.textContent = 'PAUSED';
-      }
-    });
-    audio.addEventListener('ended', () => {
-      button.textContent = '▶  PREVIEW';
-      button.setAttribute('aria-pressed', 'false');
-      status.textContent = '';
-    });
-  </script>
-</body>
-</html>
+      font-size: clamp(2rem, 8vw, 3.65rem);
+      line-height: .98;
+      letter-spacing: .11em;
+      font-weight: 500
